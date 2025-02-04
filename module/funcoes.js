@@ -167,10 +167,10 @@ const getFiltrarPalavra = function(numero, palavra, nome){
     funcoesContatos.contatos.whatsUsers.forEach(function(item){
         item.contacts.forEach(function(item2){
             item2.messages.forEach(function(item3){
-                if(String(item.number) == user && String(item3.content).toUpperCase().includes(palavraChave)){
+                if(String(item.number) == user && String(item3.content).toUpperCase().includes(palavraChave) && String(item2.name).toUpperCase() == conversante){
                     whatsUsers.push({
                         name: item2.name,
-                        profile: item2.image,
+                        profile: item2["image"],
                         description: item2.description,
                         conversas: item2.messages
                     })
@@ -186,6 +186,15 @@ const getFiltrarPalavra = function(numero, palavra, nome){
     }else{
         return status
     }
- }
+ } //corrigir b.o aqui
 
- console.log(getFiltrarPalavra("11987876567", "Leonid"))
+console.log(getFiltrarPalavra("11987876567", "Leonid", "Ana Maria"))
+
+module.exports = {
+    getConversasContatos,
+    getDadosContatos,
+    getDadosPerfil,
+    getDadosPessoais,
+    getFiltrarPalavra,
+    getListarConversas,
+}
