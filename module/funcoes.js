@@ -124,3 +124,68 @@ const getConversasContatos = function(numero){
 
 //console.log(getConversasContatos("11987876567"))
 
+ const getListarConversas = function(numero, nome){
+    let status = false
+    let user = String(numero)
+    let conversante = String(nome).toUpperCase()
+    let conversasContatos = {}
+    let whatsUsers = []
+
+    funcoesContatos.contatos.whatsUsers.forEach(function(item){
+        item.contacts.forEach(function(item2){
+            if(String(item.number) == user && String(item2.name).toUpperCase() == conversante){
+                whatsUsers.push({
+                    name: item2.name,
+                    profile: item2["image"],
+                    description: item2.description,
+                    conversas: item2.messages
+                })
+                status = true
+            }
+        })
+    })
+    conversasContatos.conversas = whatsUsers
+
+    if(status == true){
+        return conversasContatos
+    }else{
+        return status
+    }
+ }
+
+//console.log(getListarConversas("11987876567", "Julia Smith"))
+
+
+const getFiltrarPalavra = function(numero, palavra, nome){
+    let status = false
+    let conversante = String(nome).toUpperCase()
+    let user = String(numero)
+    let palavraChave = String(palavra).toUpperCase()
+    let conversasContatos = {}
+    let whatsUsers = []
+
+    funcoesContatos.contatos.whatsUsers.forEach(function(item){
+        item.contacts.forEach(function(item2){
+            item2.messages.forEach(function(item3){
+                if(String(item.number) == user && String(item3.content).toUpperCase().includes(palavraChave)){
+                    whatsUsers.push({
+                        name: item2.name,
+                        profile: item2.image,
+                        description: item2.description,
+                        conversas: item2.messages
+                    })
+                    status = true
+                }
+            })
+        })
+    })
+    conversasContatos.conversas = whatsUsers
+
+    if(status == true){
+        return conversasContatos
+    }else{
+        return status
+    }
+ }
+
+ console.log(getFiltrarPalavra("11987876567", "Leonid"))
