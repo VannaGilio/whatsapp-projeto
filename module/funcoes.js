@@ -65,3 +65,62 @@ const getDadosPerfil = function(numero){
 
 //console.log(getDadosPerfil('11987876567'))
 
+const getDadosContatos = function(numero){
+    let status = false
+    let user = String(numero)
+    let dadosDeContato = {}
+    let whatsUsers = []
+
+    funcoesContatos.contatos.whatsUsers.forEach(function(item){
+        item.contacts.forEach(function(item2){
+            if(String(item.number) == user){
+                whatsUsers.push({
+                    name: item2.name,
+                    profile: item2["image"],
+                    description: item2.description
+                })
+                status = true
+            }
+        })
+    })
+    dadosDeContato.dados_contato = whatsUsers
+
+    if(status == true){
+        return dadosDeContato
+    }else{
+        return status
+    }
+}
+
+//console.log(getDadosContatos("11987876567"))
+
+const getConversasContatos = function(numero){
+    let status = false
+    let user = String(numero)
+    let conversasContatos = {}
+    let whatsUsers = []
+
+    funcoesContatos.contatos.whatsUsers.forEach(function(item){
+        item.contacts.forEach(function(item2){
+            if(String(item.number) == user){
+                whatsUsers.push({
+                    name: item2.name,
+                    profile: item2["image"],
+                    description: item2.description,
+                    convensas: item2.messages
+                })
+                status = true
+            }
+        })
+    })
+    conversasContatos.conversas = whatsUsers
+
+    if(status == true){
+        return conversasContatos
+    }else{
+        return status
+    }
+}
+
+//console.log(getConversasContatos("11987876567"))
+
