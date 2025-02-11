@@ -8,6 +8,7 @@
 const funcoesContatos = require ("./contatos")
 // console.log(funcoesContatos)
 
+//1
 const getDadosPessoais = function(numero){
     let status = false
     let user = String(numero)
@@ -37,6 +38,7 @@ const getDadosPessoais = function(numero){
 
 //console.log(getDadosPessoais('11987876567'))
 
+//2
 const getDadosPerfil = function(numero){
     let status = false
     let user = String(numero)
@@ -65,6 +67,7 @@ const getDadosPerfil = function(numero){
 
 //console.log(getDadosPerfil('11987876567'))
 
+//3
 const getDadosContatos = function(numero){
     let status = false
     let user = String(numero)
@@ -94,6 +97,7 @@ const getDadosContatos = function(numero){
 
 //console.log(getDadosContatos("11987876567"))
 
+//4
 const getConversasContatos = function(numero){
     let status = false
     let user = String(numero)
@@ -124,6 +128,7 @@ const getConversasContatos = function(numero){
 
 //console.log(getConversasContatos("11987876567"))
 
+//5
  const getListarConversas = function(numero, nome){
     let status = false
     let user = String(numero)
@@ -155,7 +160,7 @@ const getConversasContatos = function(numero){
 
 //console.log(getListarConversas("11987876567", "Julia Smith"))
 
-
+//6
 const getFiltrarPalavra = function(numero, palavra, nome){
     let status = false
     let conversante = String(nome).toUpperCase()
@@ -186,9 +191,9 @@ const getFiltrarPalavra = function(numero, palavra, nome){
     }else{
         return status
     }
- } //corrigir b.o aqui
+ }
 
-console.log(getFiltrarPalavra("11987876567", "Leonid", "Ana Maria"))
+//console.log(getFiltrarPalavra("11987876567", "Leonid", "Ana Maria"))
 
 module.exports = {
     getConversasContatos,

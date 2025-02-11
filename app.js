@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 //Inicia a utilização do express
 const app = express ()
+app.use(cors()); 
 
 //configuração do header -> quem poderá requisitar a API
 app.use((request, response, next) =>{
@@ -26,7 +27,8 @@ app.use((request, response, next) =>{
 
 const whatsUsers = require("./module/funcoes")
 
-app.get('/v1/whatsapp/dados/pessoal/:numero', cors(), async function(request, response){
+//1
+app.get('/v1/whatsapp/conversas/:numero', cors(), async function(request, response){
 
     let receberDados = request.params.numero
     let dadosPessoais = whatsUsers.getDadosPessoais(receberDados)
@@ -36,10 +38,11 @@ app.get('/v1/whatsapp/dados/pessoal/:numero', cors(), async function(request, re
         response.json(dadosPessoais)
     }else{
         response.status(404)
-        response.json({'status': 404, 'message': 'Não foi encontrado um estado'})
+        response.json({'status': 404, 'message': 'Não foi encontrado um perfil'})
     }
 })
 
+//2
 app.get('/v1/whatsapp/perfil/:numero', cors(), async function(request, response) {
 
     let receberDados = request.params.numero
@@ -50,10 +53,11 @@ app.get('/v1/whatsapp/perfil/:numero', cors(), async function(request, response)
         response.json(dadosPessoais)
     }else{
         response.status(404)
-        response.json({'status': 404, 'message': 'Não foi encontrado um estado'})
+        response.json({'status': 404, 'message': 'Não foi encontrado um perfil'})
     }
 })
 
+//3
 app.get('/v1/whatsapp/contatos/:numero', cors(), async function(request, response) {
 
     let receberDados = request.params.numero
@@ -64,10 +68,11 @@ app.get('/v1/whatsapp/contatos/:numero', cors(), async function(request, respons
         response.json(dadosPessoais)
     }else{
         response.status(404)
-        response.json({'status': 404, 'message': 'Não foi encontrado um estado'})
+        response.json({'status': 404, 'message': 'Não foi encontrado um contato'})
     }
 })
 
+//4
 app.get('/v1/whatsapp/conversas/:numero', cors(), async function(request, response) {
 
     let receberDados = request.params.numero
@@ -78,22 +83,40 @@ app.get('/v1/whatsapp/conversas/:numero', cors(), async function(request, respon
         response.json(dadosPessoais)
     }else{
         response.status(404)
-        response.json({'status': 404, 'message': 'Não foi encontrado um estado'})
+        response.json({'status': 404, 'message': 'Não foi encontrado um contato'})
     }
 })
 
-app.get('/v1/whatsapp/conversas/:numero', cors(), async function(request, response) {
+//5
+app.get('/v1/whatsapp/conversas/', cors(), async function(request, response) {
 
-    let receba = request.query.n
-    let receberDados = request.params.numero
-    let dadosPessoais = whatsUsers.getConversasContatos(receberDados)
+    let numero = request.query.numero
+    let contato = request.query.contato
+    let dadosPessoais = whatsUsers.getListarConversas(numero, contato)
 
     if(dadosPessoais){
         response.status(200)
         response.json(dadosPessoais)
     }else{
         response.status(404)
-        response.json({'status': 404, 'message': 'Não foi encontrado um estado'})
+        response.json({'status': 404, 'message': 'Não foi encontrado um contato'})
+    }
+})
+
+//6
+app.get('/v1/whatsapp/conversas/palavra-chave/?', cors(), async function(request, response) {
+
+    let numero = request.query.numero
+    let palavra = request.query.palavra
+    let contato = request.query.contato
+    let dadosPessoais = whatsUsers.getFiltrarPalavra(numero, palavra, contato)
+
+    if(dadosPessoais){
+        response.status(200)
+        response.json(dadosPessoais)
+    }else{
+        response.status(404)
+        response.json({'status': 404, 'message': 'Não foi encontrado uma conversa'})
     }
 })
 
