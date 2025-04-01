@@ -73,10 +73,9 @@ app.get('/v1/whatsapp/contatos/:numero', cors(), async function(request, respons
 })
 
 //4
-app.get('/v1/whatsapp/conversas/:numero', cors(), async function(request, response) {
-
-    let receberDados = request.params.numero
-    let dadosPessoais = whatsUsers.getConversasContatos(receberDados)
+app.get('/v1/whatsapp/conversas/', cors(), async function(request, response) {
+    let numero = request.query.numero
+    let dadosPessoais = whatsUsers.getConversasContatos(numero)
 
     if(dadosPessoais){
         response.status(200)
@@ -123,4 +122,3 @@ app.get('/v1/whatsapp/conversas/palavra-chave/?', cors(), async function(request
 app.listen('8080', function(){
     console.log('API funcionando...')
 })
-
