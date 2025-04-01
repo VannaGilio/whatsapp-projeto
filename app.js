@@ -28,7 +28,7 @@ app.use((request, response, next) =>{
 const whatsUsers = require("./module/funcoes")
 
 //1
-app.get('/v1/whatsapp/conversas/:numero', cors(), async function(request, response){
+app.get('/v1/whatsapp/dados/:numero', cors(), async function(request, response){
 
     let receberDados = request.params.numero
     let dadosPessoais = whatsUsers.getDadosPessoais(receberDados)
@@ -73,8 +73,8 @@ app.get('/v1/whatsapp/contatos/:numero', cors(), async function(request, respons
 })
 
 //4
-app.get('/v1/whatsapp/conversas/', cors(), async function(request, response) {
-    let numero = request.query.numero
+app.get('/v1/whatsapp/conversas/:numero', cors(), async function(request, response) {
+    let numero = request.params.numero
     let dadosPessoais = whatsUsers.getConversasContatos(numero)
 
     if(dadosPessoais){
@@ -88,17 +88,20 @@ app.get('/v1/whatsapp/conversas/', cors(), async function(request, response) {
 
 //5
 app.get('/v1/whatsapp/conversas/', cors(), async function(request, response) {
+    try {
+        const numero = request.query.numero
+        const contato = request.query.contato
 
-    let numero = request.query.numero
-    let contato = request.query.contato
-    let dadosPessoais = whatsUsers.getListarConversas(numero, contato)
+        const dadosPessoais = whatsUsers.getListarConversas(numero, contato)
 
-    if(dadosPessoais){
-        response.status(200)
-        response.json(dadosPessoais)
-    }else{
-        response.status(404)
-        response.json({'status': 404, 'message': 'Não foi encontrado um contato'})
+        if (dadosPessoais) {
+            return response.status(200).json(dadosPessoais)
+        } else {
+            return response.status(404).json({ status: 404, message: 'Não foi encontrado um contato.' })
+        }
+    } catch (error) {
+        console.error('Erro ao listar conversas:', error)
+        return response.status(500).json({ status: 500, message: 'Erro interno do servidor.' })
     }
 })
 
