@@ -194,7 +194,9 @@ const getFiltrarPalavra = function(numero, palavra, nome){
     }else{
         return status
     }
- }
+}
+
+
 
 //console.log(getFiltrarPalavra("11987876567", "Leonid", "Ana Maria"))
 

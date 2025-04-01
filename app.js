@@ -103,12 +103,12 @@ app.get('/v1/whatsapp/conversas/', cors(), async function(request, response) {
 })
 
 //6
-app.get('/v1/whatsapp/conversas/palavra-chave/?', cors(), async function(request, response) {
+app.get('/v1/whatsapp/conversas/palavra-chave/', cors(), async function(request, response) {
 
     let numero = request.query.numero
     let palavra = request.query.palavra
     let contato = request.query.contato
-    let dadosPessoais = whatsUsers.getFiltrarPalavra(numero, palavra, contato)
+    let dadosPessoais = getFiltrarPalavra(numero, palavra, contato)
 
     if(dadosPessoais){
         response.status(200)
